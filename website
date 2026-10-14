@@ -1,0 +1,315 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#173b34">
+    <meta name="description" content="A calm, curated daily briefing across world, business, technology, culture, and climate.">
+    <title>Dayline | A clearer view of the day</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Newsreader:opsz,wght@6..72,500;6..72,600&display=swap" rel="stylesheet">
+    <style>
+      :root {
+        color-scheme: light;
+        --ink: #17231f;
+        --muted: #63716b;
+        --line: #dce3df;
+        --paper: #f5f7f4;
+        --white: #fff;
+        --green: #173b34;
+        --green-soft: #e2eee8;
+        --coral: #e56f52;
+        --blue: #426f83;
+        --serif: "Newsreader", Georgia, serif;
+        --sans: "DM Sans", sans-serif;
+      }
+
+      * { box-sizing: border-box; }
+      body { margin: 0; background: var(--paper); color: var(--ink); font-family: var(--sans); }
+      button, input { font: inherit; }
+      a { color: inherit; text-decoration: none; }
+      button { color: inherit; }
+      .topline { height: 38px; background: #102d28; color: #d8e5df; font-size: 12px; }
+      .topline-inner, .masthead, .nav-inner, main, footer { width: min(1180px, calc(100% - 48px)); margin: auto; }
+      .topline-inner { height: 100%; display: flex; align-items: center; justify-content: space-between; }
+      .edition { display: flex; align-items: center; gap: 9px; }
+      .edition-mark { width: 7px; height: 7px; border-radius: 50%; background: #f29b78; }
+      .topline a { color: #f2b49f; }
+      .masthead { min-height: 94px; display: flex; justify-content: space-between; align-items: center; gap: 32px; }
+      .brand { display: flex; align-items: center; gap: 12px; flex: 0 0 auto; }
+      .brand-symbol { width: 38px; height: 38px; display: grid; place-items: center; background: var(--coral); color: white; font-weight: 700; font-size: 19px; border-radius: 11px 11px 11px 3px; }
+      .brand-name { font-size: 23px; line-height: 1; font-weight: 700; }
+      .brand-tagline { margin-top: 5px; color: var(--muted); font-size: 11px; }
+      .search { display: flex; width: min(420px, 44vw); height: 42px; border: 1px solid var(--line); background: var(--white); border-radius: 4px; }
+      .search input { flex: 1; min-width: 0; border: 0; outline: 0; background: transparent; padding: 0 13px; color: var(--ink); font-size: 13px; }
+      .search input:focus-visible { box-shadow: inset 0 0 0 2px var(--blue); }
+      .search button { width: 48px; border: 0; border-left: 1px solid var(--line); background: transparent; color: var(--green); cursor: pointer; font-size: 18px; }
+      .account-link { border: 1px solid var(--line); background: var(--white); border-radius: 3px; padding: 10px 14px; font-size: 12px; font-weight: 600; white-space: nowrap; }
+      .nav { background: var(--white); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+      .nav-inner { min-height: 48px; display: flex; align-items: center; gap: 27px; overflow-x: auto; scrollbar-width: none; }
+      .nav-inner::-webkit-scrollbar { display: none; }
+      .nav a { height: 48px; display: inline-flex; align-items: center; color: #53615b; font-size: 12px; font-weight: 600; white-space: nowrap; }
+      .nav a[aria-current="page"] { color: var(--green); box-shadow: inset 0 -2px var(--coral); }
+      main { padding: 26px 0 56px; }
+      .section-kicker { display: flex; align-items: center; gap: 10px; margin-bottom: 15px; color: var(--green); font-size: 11px; font-weight: 700; text-transform: uppercase; }
+      .section-kicker::after { content: ""; height: 1px; flex: 1; background: var(--line); }
+      .lead-layout { display: grid; grid-template-columns: minmax(0, 1.8fr) minmax(260px, .8fr); gap: 18px; }
+      .lead-story { min-height: 430px; position: relative; overflow: hidden; background: #244c40; color: white; }
+      .lead-story > img { width: 100%; height: 100%; min-height: 430px; object-fit: cover; display: block; }
+      .lead-story::after { content: ""; position: absolute; inset: 25% 0 0; background: linear-gradient(transparent, rgba(9, 25, 22, .88)); pointer-events: none; }
+      .lead-copy { position: absolute; z-index: 1; left: 30px; right: 30px; bottom: 27px; max-width: 690px; }
+      .eyebrow { display: inline-block; background: var(--coral); padding: 6px 9px; color: white; font-size: 10px; font-weight: 700; text-transform: uppercase; }
+      .lead-copy h1 { margin: 12px 0 10px; font: 600 clamp(32px, 4.2vw, 54px)/.98 var(--serif); max-width: 660px; }
+      .lead-copy p { margin: 0; max-width: 580px; color: #e3ebe6; font-size: 13px; line-height: 1.6; }
+      .story-meta { margin-top: 15px; color: #d7e1dc; font-size: 10px; }
+      .brief-column { display: grid; grid-template-rows: 1fr 1fr; gap: 18px; }
+      .brief-card { position: relative; min-height: 206px; overflow: hidden; background: #dfe7e1; }
+      .brief-card img { display: block; width: 100%; height: 100%; min-height: 206px; object-fit: cover; }
+      .brief-card::after { content: ""; position: absolute; inset: 45% 0 0; background: linear-gradient(transparent, rgba(11, 30, 26, .88)); }
+      .brief-copy { position: absolute; z-index: 1; left: 17px; right: 17px; bottom: 15px; color: white; }
+      .brief-copy span { color: #f7b29a; font-size: 9px; font-weight: 700; text-transform: uppercase; }
+      .brief-copy h2 { margin: 5px 0 0; font: 600 22px/1.06 var(--serif); }
+      .ticker { display: flex; align-items: center; gap: 14px; min-height: 44px; margin: 18px 0 32px; padding: 0 14px; border: 1px solid var(--line); background: var(--white); font-size: 11px; }
+      .ticker-label { flex: 0 0 auto; color: var(--coral); font-size: 10px; font-weight: 700; text-transform: uppercase; }
+      .ticker p { overflow: hidden; margin: 0; color: #43514b; text-overflow: ellipsis; white-space: nowrap; }
+      .content-layout { display: grid; grid-template-columns: minmax(0, 1fr) 280px; gap: 40px; align-items: start; }
+      .feed-heading { display: flex; align-items: baseline; justify-content: space-between; gap: 20px; margin-bottom: 16px; }
+      .feed-heading h2, .side-heading { margin: 0; font: 600 30px/1.1 var(--serif); }
+      .feed-heading p { margin: 0; color: var(--muted); font-size: 11px; }
+      .filters { display: flex; gap: 7px; overflow-x: auto; padding: 2px 0 13px; scrollbar-width: none; }
+      .filters::-webkit-scrollbar { display: none; }
+      .filter { flex: 0 0 auto; border: 1px solid var(--line); border-radius: 2px; background: transparent; padding: 8px 12px; color: #52615b; font-size: 11px; cursor: pointer; }
+      .filter[aria-pressed="true"] { border-color: var(--green); background: var(--green); color: white; }
+      .story-list { display: grid; }
+      .story-card { display: grid; grid-template-columns: 190px minmax(0, 1fr); gap: 18px; padding: 18px 0; border-top: 1px solid var(--line); }
+      .story-card[hidden] { display: none; }
+      .story-card img { width: 190px; height: 128px; object-fit: cover; background: #d8e1dc; }
+      .story-text { display: flex; flex-direction: column; align-items: flex-start; }
+      .story-category { color: var(--blue); font-size: 9px; font-weight: 700; text-transform: uppercase; }
+      .story-text h3 { margin: 7px 0 5px; font: 600 24px/1.04 var(--serif); }
+      .story-text p { margin: 0; color: #596760; font-size: 11px; line-height: 1.6; }
+      .story-bottom { width: 100%; display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-top: auto; padding-top: 10px; color: var(--muted); font-size: 10px; }
+      .save { border: 0; background: none; padding: 4px 0; color: #53615b; font-size: 10px; cursor: pointer; }
+      .save[aria-pressed="true"] { color: #b6533a; font-weight: 700; }
+      .side-panel { border-top: 3px solid var(--green); background: var(--white); padding: 18px; }
+      .side-heading { font-size: 23px; }
+      .side-intro { margin: 8px 0 16px; color: var(--muted); font-size: 11px; line-height: 1.6; }
+      .side-item { padding: 13px 0; border-top: 1px solid var(--line); }
+      .side-item span { color: var(--coral); font-size: 9px; font-weight: 700; text-transform: uppercase; }
+      .side-item h3 { margin: 5px 0 0; font: 600 18px/1.08 var(--serif); }
+      .side-footer { display: flex; justify-content: space-between; padding-top: 13px; border-top: 1px solid var(--line); color: var(--muted); font-size: 10px; }
+      .empty-state { display: none; padding: 35px 10px; color: var(--muted); text-align: center; font-size: 13px; }
+      .empty-state.is-visible { display: block; }
+      footer { display: flex; justify-content: space-between; gap: 20px; border-top: 1px solid var(--line); padding: 18px 0 28px; color: var(--muted); font-size: 10px; }
+      :focus-visible { outline: 2px solid var(--blue); outline-offset: 3px; }
+
+      @media (max-width: 800px) {
+        .topline-inner, .masthead, .nav-inner, main, footer { width: min(100% - 32px, 620px); }
+        .masthead { min-height: 82px; gap: 12px; flex-wrap: wrap; padding: 15px 0; }
+        .search { order: 3; width: 100%; }
+        .account-link { margin-left: auto; }
+        .lead-layout { grid-template-columns: 1fr; }
+        .lead-story, .lead-story > img { min-height: 390px; }
+        .brief-column { grid-template-columns: 1fr 1fr; grid-template-rows: auto; }
+        .brief-card, .brief-card img { min-height: 190px; }
+        .content-layout { grid-template-columns: 1fr; gap: 30px; }
+        .side-panel { max-width: none; }
+      }
+      @media (max-width: 520px) {
+        .topline-inner, .masthead, .nav-inner, main, footer { width: calc(100% - 24px); }
+        .topline-inner > a { display: none; }
+        .brand-name { font-size: 21px; }
+        .lead-story, .lead-story > img { min-height: 370px; }
+        .lead-copy { left: 18px; right: 18px; bottom: 19px; }
+        .lead-copy h1 { font-size: 39px; }
+        .lead-copy p { font-size: 12px; }
+        .brief-column { gap: 10px; }
+        .brief-card, .brief-card img { min-height: 170px; }
+        .brief-copy { left: 11px; right: 11px; bottom: 11px; }
+        .brief-copy h2 { font-size: 18px; }
+        .ticker { margin-bottom: 26px; }
+        .ticker p { white-space: normal; line-height: 1.4; }
+        .feed-heading { align-items: flex-start; flex-direction: column; gap: 5px; }
+        .story-card { grid-template-columns: 112px minmax(0, 1fr); gap: 12px; }
+        .story-card img { width: 112px; height: 104px; }
+        .story-text h3 { font-size: 20px; }
+        .story-text p { display: none; }
+        .story-bottom { padding-top: 8px; }
+        footer { flex-direction: column; gap: 7px; }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="topline">
+      <div class="topline-inner">
+        <div class="edition"><span class="edition-mark"></span><span>Wednesday, October 14</span><span>·</span><span>Morning edition</span></div>
+        <a href="#latest">Your daily briefing, in one place</a>
+      </div>
+    </div>
+    <header>
+      <div class="masthead">
+        <a class="brand" href="#top" aria-label="Dayline home">
+          <span class="brand-symbol" aria-hidden="true">D</span>
+          <span><span class="brand-name">dayline</span><span class="brand-tagline">A clearer view of the day</span></span>
+        </a>
+        <form class="search" role="search" id="search-form">
+          <input id="search-input" type="search" placeholder="Search stories, topics, and more" aria-label="Search stories">
+          <button type="submit" aria-label="Search">⌕</button>
+        </form>
+        <a class="account-link" href="#latest">Saved stories <span id="saved-count">0</span></a>
+      </div>
+      <nav class="nav" aria-label="Sections">
+        <div class="nav-inner">
+          <a href="#top" aria-current="page">Top stories</a>
+          <a href="#latest" data-nav-category="World">World</a>
+          <a href="#latest" data-nav-category="Business">Business</a>
+          <a href="#latest" data-nav-category="Technology">Technology</a>
+          <a href="#latest" data-nav-category="Climate">Climate</a>
+          <a href="#latest" data-nav-category="Culture">Culture</a>
+          <a href="#latest" data-nav-category="Ideas">Ideas</a>
+        </div>
+      </nav>
+    </header>
+
+    <main id="top">
+      <div class="section-kicker">The big picture <span>Wednesday briefing</span></div>
+      <section class="lead-layout" aria-label="Top stories">
+        <article class="lead-story">
+          <img src="https://images.unsplash.com/photo-1470252649378-9c29740c9fa8?auto=format&fit=crop&w=1500&q=85" alt="Sunlight spreading over a green landscape at dawn">
+          <div class="lead-copy">
+            <span class="eyebrow">The long view</span>
+            <h1>Small green spaces are changing how cities feel</h1>
+            <p>From pocket parks to rooftop gardens, neighborhood projects are giving dense streets a little room to breathe.</p>
+            <div class="story-meta">CLIMATE &amp; CITIES &nbsp;·&nbsp; 8 MIN READ</div>
+          </div>
+        </article>
+        <div class="brief-column">
+          <article class="brief-card">
+            <img src="https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=800&q=80" alt="Bright, plant-filled collaborative workspace">
+            <div class="brief-copy"><span>Work &amp; life</span><h2>The new shape of the neighborhood office</h2></div>
+          </article>
+          <article class="brief-card">
+            <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=800&q=80" alt="People collaborating around a laptop">
+            <div class="brief-copy"><span>Technology</span><h2>Designing tools that give people time back</h2></div>
+          </article>
+        </div>
+      </section>
+
+      <div class="ticker" aria-label="In the briefing">
+        <span class="ticker-label">In the briefing</span>
+        <p>Fresh perspectives on the ideas, places, and people shaping the day.</p>
+      </div>
+
+      <section class="content-layout" id="latest">
+        <div>
+          <div class="feed-heading">
+            <h2>Latest stories</h2>
+            <p>Curious reads for wherever the day takes you.</p>
+          </div>
+          <div class="filters" role="group" aria-label="Filter stories by topic">
+            <button class="filter" type="button" data-filter="All" aria-pressed="true">For you</button>
+            <button class="filter" type="button" data-filter="World" aria-pressed="false">World</button>
+            <button class="filter" type="button" data-filter="Business" aria-pressed="false">Business</button>
+            <button class="filter" type="button" data-filter="Technology" aria-pressed="false">Technology</button>
+            <button class="filter" type="button" data-filter="Climate" aria-pressed="false">Climate</button>
+            <button class="filter" type="button" data-filter="Culture" aria-pressed="false">Culture</button>
+          </div>
+          <div class="story-list" id="story-list">
+            <article class="story-card" data-category="World" data-search="world public libraries community third places shared spaces">
+              <img src="https://images.unsplash.com/photo-1507842217343-583bb7270b66?auto=format&fit=crop&w=500&q=80" alt="Shelves of books in a sunlit library" loading="lazy">
+              <div class="story-text"><span class="story-category">World</span><h3>Why public libraries are becoming community living rooms</h3><p>New spaces are making room for more than books, bringing neighbors together around everyday needs.</p><div class="story-bottom"><span>6 min read · 24 min ago</span><button class="save" type="button" aria-pressed="false">☆ Save</button></div></div>
+            </article>
+            <article class="story-card" data-category="Technology" data-search="technology repair electronics right to repair devices design">
+              <img src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=500&q=80" alt="Engineer working carefully on an electronic device" loading="lazy">
+              <div class="story-text"><span class="story-category">Technology</span><h3>The clever engineering behind easier-to-repair devices</h3><p>A growing design movement asks what products could look like when repair is part of the plan.</p><div class="story-bottom"><span>5 min read · 1 hr ago</span><button class="save" type="button" aria-pressed="false">☆ Save</button></div></div>
+            </article>
+            <article class="story-card" data-category="Business" data-search="business small businesses local high street shops neighborhoods">
+              <img src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=500&q=80" alt="Independent clothing shop on a city street" loading="lazy">
+              <div class="story-text"><span class="story-category">Business</span><h3>What helps independent shops find a second life</h3><p>Owners are finding inventive ways to build loyal local audiences and make smaller spaces work.</p><div class="story-bottom"><span>7 min read · 2 hrs ago</span><button class="save" type="button" aria-pressed="false">☆ Save</button></div></div>
+            </article>
+            <article class="story-card" data-category="Climate" data-search="climate energy home batteries renewable power storage clean energy">
+              <img src="https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?auto=format&fit=crop&w=500&q=80" alt="Wind turbines generating power across rolling hills" loading="lazy">
+              <div class="story-text"><span class="story-category">Climate</span><h3>How home energy storage is changing the evening routine</h3><p>Battery systems are giving households new choices about when to use the power they generate.</p><div class="story-bottom"><span>4 min read · 3 hrs ago</span><button class="save" type="button" aria-pressed="false">☆ Save</button></div></div>
+            </article>
+            <article class="story-card" data-category="Culture" data-search="culture music listening albums vinyl community events">
+              <img src="https://images.unsplash.com/photo-1511379938547-c1f69419868d?auto=format&fit=crop&w=500&q=80" alt="Microphone and instruments in a recording studio" loading="lazy">
+              <div class="story-text"><span class="story-category">Culture</span><h3>Listening clubs are making music a shared experience again</h3><p>Small gatherings centered on a single album are finding fans across generations.</p><div class="story-bottom"><span>5 min read · 4 hrs ago</span><button class="save" type="button" aria-pressed="false">☆ Save</button></div></div>
+            </article>
+          </div>
+          <p class="empty-state" id="empty-state">No stories match that search. Try another topic.</p>
+        </div>
+        <aside class="side-panel" aria-label="More to explore">
+          <h2 class="side-heading">Worth your time</h2>
+          <p class="side-intro">A few thoughtful reads to take beyond the headlines.</p>
+          <article class="side-item"><span>Ideas · 9 min</span><h3>What makes a place feel like it belongs to everyone?</h3></article>
+          <article class="side-item"><span>Culture · 4 min</span><h3>The small rituals that make a good morning</h3></article>
+          <article class="side-item"><span>Technology · 6 min</span><h3>Can better interfaces make the internet feel smaller?</h3></article>
+          <div class="side-footer"><span>Updated daily</span><span>Dayline editors</span></div>
+        </aside>
+      </section>
+    </main>
+    <footer><span>© 2026 Dayline</span><span>An independent demo news experience</span></footer>
+
+    <script>
+      const filterButtons = [...document.querySelectorAll(".filter")];
+      const storyCards = [...document.querySelectorAll(".story-card")];
+      const searchInput = document.querySelector("#search-input");
+      const emptyState = document.querySelector("#empty-state");
+      let activeCategory = "All";
+
+      function updateStories() {
+        const query = searchInput.value.trim().toLowerCase();
+        let visibleCount = 0;
+
+        for (const card of storyCards) {
+          const matchesCategory = activeCategory === "All" || card.dataset.category === activeCategory;
+          const matchesQuery = !query || `${card.dataset.search} ${card.textContent}`.toLowerCase().includes(query);
+          card.hidden = !(matchesCategory && matchesQuery);
+          if (!card.hidden) visibleCount += 1;
+        }
+
+        emptyState.classList.toggle("is-visible", visibleCount === 0);
+      }
+
+      for (const button of filterButtons) {
+        button.addEventListener("click", () => {
+          activeCategory = button.dataset.filter;
+          for (const otherButton of filterButtons) {
+            otherButton.setAttribute("aria-pressed", String(otherButton === button));
+          }
+          updateStories();
+        });
+      }
+
+      for (const link of document.querySelectorAll("[data-nav-category]")) {
+        link.addEventListener("click", () => {
+          activeCategory = link.dataset.navCategory;
+          for (const button of filterButtons) {
+            button.setAttribute("aria-pressed", String(button.dataset.filter === activeCategory));
+          }
+          updateStories();
+        });
+      }
+
+      document.querySelector("#search-form").addEventListener("submit", (event) => {
+        event.preventDefault();
+        updateStories();
+      });
+      searchInput.addEventListener("input", updateStories);
+
+      const savedCount = document.querySelector("#saved-count");
+      for (const button of document.querySelectorAll(".save")) {
+        button.addEventListener("click", () => {
+          const isSaved = button.getAttribute("aria-pressed") !== "true";
+          button.setAttribute("aria-pressed", String(isSaved));
+          button.textContent = isSaved ? "★ Saved" : "☆ Save";
+          savedCount.textContent = document.querySelectorAll('.save[aria-pressed="true"]').length;
+        });
+      }
+    </script>
+  </body>
+</html>
